@@ -10,7 +10,7 @@ class Hero:
         self.mana = 0
         self.mana_base = 0
         self.gold = 0
-        self.in_quest = False
+        self.in_quest = None
         self.castillo = castillo
         self.Name = name
 
@@ -28,3 +28,14 @@ class Hero:
         result += 'Gold: ' + str(self.gold)
 
         return result
+
+    def Forest(self):
+        if self.stamina == 0:
+            print(self.NoStamina())
+            return
+
+    def NoStamina(self):
+        # TODO: averiguar como sacar un hash para que cada jugador tenga
+        # un codigo unico para invitar a otroas personas para conseguir
+        # mas stamina base
+        return 'El jugador no dispone de stamina, vuelva mas tarde'
