@@ -7,13 +7,18 @@ from random import Random
 # Dictionary<int, List<Tuple<string, int>>> questions
 questions = {}
 
+for i in range(1, 31):
+    questions[i] = []
+
+questions[1].append(('Cuanto es 2+2?', 4))
+
 def Forest(lvl):
     temp = Random()
 
     # las preguntas van a salir con una probabilidad de 0.3, en otro
     # caso solo vas al bosque y viras con cierto exp y gold
-    if(temp.uniform(0, 1) >= 0.3):
-        return None
+    # if(temp.uniform(0, 1) >= 0.3):
+    #     return None
 
     # me quedo con las posibles preguntas que le puedo hacer a este
     # jugador
