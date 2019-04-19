@@ -3,7 +3,7 @@ from threading import Timer
 
 class Hero:
 
-    def __init__(self, castillo, name):
+    def __init__(self):
         self.lvl = 1
         self.attack = 1
         self.defense = 1
@@ -14,8 +14,12 @@ class Hero:
         self.mana_base = 0
         self.gold = 0
         self.in_quest = None
-        self.castillo = castillo
+
+    def set_name(self, name):
         self.Name = name
+
+    def set_casttle(self, casttle):
+        self.Casttle = casttle
 
     def __str__(self):
         result = ''
