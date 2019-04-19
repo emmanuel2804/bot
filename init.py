@@ -28,12 +28,12 @@ def start(message):
     try:
         bot.reply_to(message, 'Escoge un castillo',
                             parse_mode='markdown', reply_markup=kb)
-        bot.register_next_step_handler(message, chosen_lang)  # sends the msg, and register the 'chosen_lang' func
+        bot.register_next_step_handler(message, chosen_casttle)  # sends the msg, and register the 'chosen_lang' func
     except Exception as e:                                # to be handled next
         print("An error occurred when processing 'Language Selector':", e)
         pass 
 
-def chosen_lang(msg):
+def chosen_casttle(msg):
     # print('lenguaje escogido ', msg)
     # result = loads(msg)
     print(msg.text)
