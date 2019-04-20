@@ -1,6 +1,6 @@
 from quest import Forest
 from threading import Timer
-from init import bot_send_message, create_markup, check_answer
+from utils import *
 
 class Hero:
 
@@ -38,7 +38,7 @@ class Hero:
 
         return result
 
-    def Forest(self):
+    def Forest(self, message):
         if self.stamina == 0:
             return self.NoStamina()
 
@@ -54,7 +54,7 @@ class Hero:
         # te toque alguna. Si aceptaste en la pregunta agregarla a tus
         # posibles preguntas
         self.in_quest = 'Viajando por el bosque en busca de nuevos conocimientos'
-        t = Timer(10, self.time_gone, [question], {})
+        t = Timer(10, self.time_gone, [question, message], {})
         t.start()
 
         return self.in_quest
@@ -66,7 +66,7 @@ class Hero:
         return 'El jugador no dispone de stamina, vuelva mas tarde'
 
     # metodo que es llamado cuando se termina el tiempo de un quest
-    def time_gone(self, question):
+    def time_gone(self, question, message):
         self.in_quest = None
 
         self.exp += 1
@@ -76,15 +76,16 @@ class Hero:
         if question == None:
             return
 
-        bot_send_message(self.player_id, 'En tu viaje te has encontrado con un antiguo sabio')
+        # bot_send_message(self.player_id, 'En tu viaje te has encontrado con un antiguo sabio')
 
         # TODO: hacerle shuffle a las posibles respuestas
-        text = 'Este te hace la siguiente pregunta\n' + '\"' + question[0] + '\"'
+        text = 'En tu viaje te has encontrado con un antiguo sabio\n' + \
+            'Este te hace la siguiente pregunta\n' + '\"' + question[0] + '\"'
 
         bot_send_message(self.player_id, text, create_markup(question[2]))
-        respuesta = int(input('Cual es tu respuesta?: '))
+        # respuesta = int(input('Cual es tu respuesta?: '))
 
-        check_answer(question[1])
+        check_answer(question[1], message)
         # if respuesta == question[1]:
         #     print('Bravo valiente guerrero, el conocimiento es poder')
         #     print('Pregunta agregada a tu conocimiento')

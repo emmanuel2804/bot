@@ -2,31 +2,14 @@ import telebot
 from telebot import types
 from json import loads
 from hero import Hero
-
-bot = telebot.TeleBot("878916725:AAGpCSgEJB3UvmEUexOkSPmuIWiJcnBenJ0")
-users = {}
-
-def create_markup(*args):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-
-    for i in args:
-        markup.add(types.KeyboardButton('/' + i))
-
-def bot_send_message(id, message, reply_markup=None):
-    if reply_markup is None:
-        reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        reply_markup.add(
-            types.KeyboardButton('/me'),
-            types.KeyboardButton('/forest')
-        )
-
-    bot.send_message(id, message, reply_markup=reply_markup)
+from initialize import *
+from utils import *
 
 @bot.message_handler(commands = ['forest'])
 def forest(message):
     user = message.from_user
 
-    bot_send_message(user.id, users[user.id].Forest())
+    bot_send_message(user.id, users[user.id].Forest(message))
 
 @bot.message_handler(commands = ['me'])
 def me(message):
@@ -59,25 +42,5 @@ def start(message):
     except Exception as e:                                # to be handled next
         print("An error occurred when processing 'Language Selector':", e)
         pass 
-
-def chosen_casttle(msg):
-    user = msg.from_user
-
-    users[user.id].set_casttle(msg.text)
-    users[user.id].set_name(user.username)
-
-    bot_send_message(user.id, users[user.id])
-
-def check_answer(rigth):
-    bot.register_next_step_handler(message, checker, [rigth])
-
-def checker(msg, *args):
-    if msg.text[1:] == args[0]:
-        response = 'Bravo valiente guerrero, el conocimiento es poder'
-        response += '\nPregunta agregada a tu conocimiento'
-        response += '\nHas ganado 2 exp'
-
-        bot_send_message(msg.from_user.id, response)
-        users[msg.from_user.id].exp += 2
 
 bot.polling()
