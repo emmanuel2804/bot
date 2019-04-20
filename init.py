@@ -7,15 +7,21 @@ from utils import *
 
 @bot.message_handler(commands = ['forest'])
 def forest(message):
-    user = message.from_user
+    try:
+        user = message.from_user
 
-    bot_send_message(user.id, users[user.id].Forest(message))
+        bot_send_message(user.id, users[user.id].Forest(message))
+    except Exception as e:
+        bot_send_message(user.id, 'Cancio papa dale /start primero')
 
 @bot.message_handler(commands = ['me'])
 def me(message):
-    user = message.from_user
+    try:        
+        user = message.from_user
 
-    bot_send_message(user.id, users[user.id])
+        bot_send_message(user.id, users[user.id])
+    except Exception as e:
+        bot_send_message(user.id, 'Cancio papa dale /start primero')
 
 @bot.message_handler(commands = ['start'])
 def start(message):
@@ -41,6 +47,6 @@ def start(message):
         bot.register_next_step_handler(message, chosen_casttle)
     except Exception as e:                                # to be handled next
         print("An error occurred when processing 'Language Selector':", e)
-        pass 
+        pass
 
 bot.polling()

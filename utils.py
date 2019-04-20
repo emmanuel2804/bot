@@ -6,7 +6,10 @@ def create_markup(*args):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
 
     for i in args[0]:
-        markup.add(types.KeyboardButton('/' + str(i)))
+        # print('tecla ', i, ' agregada')
+        markup.add(types.KeyboardButton(i))
+
+    return markup
 
 def bot_send_message(id, message, reply_markup=None):
     if reply_markup is None:
