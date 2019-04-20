@@ -6,12 +6,40 @@ from hero import Hero
 bot = telebot.TeleBot("878916725:AAGpCSgEJB3UvmEUexOkSPmuIWiJcnBenJ0")
 users = {}
 
+def create_markup(*args):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+
+    for i in args:
+        markup.add(types.KeyboardButton('/' + i))
+
+def bot_send_message(id, message, reply_markup=None):
+    if reply_markup is None:
+        reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+        reply_markup.add(
+            types.KeyboardButton('/me'),
+            types.KeyboardButton('/forest')
+        )
+
+    bot.send_message(id, message, reply_markup=reply_markup)
+
+@bot.message_handler(commands = ['forest'])
+def forest(message):
+    user = message.from_user
+
+    bot_send_message(user.id, users[user.id].Forest())
+
+@bot.message_handler(commands = ['me'])
+def me(message):
+    user = message.from_user
+
+    bot_send_message(user.id, users[user.id])
+
 @bot.message_handler(commands = ['start'])
 def start(message):
-    user = message.from_user.id
-    markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True)
+    user = message.from_user
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 
-    users[user] = Hero()
+    users[user.id] = Hero(user.id)
 
     kb = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True, one_time_keyboard=True)
 
@@ -26,16 +54,30 @@ def start(message):
     kb.row(kbtn5)
 
     try:
-        bot.reply_to(message, 'Escoge un castillo',
-                            parse_mode='markdown', reply_markup=kb)
-        bot.register_next_step_handler(message, chosen_casttle)  # sends the msg, and register the 'chosen_lang' func
+        bot_send_message(user.id, 'Escoge un castillo', reply_markup=kb)
+        bot.register_next_step_handler(message, chosen_casttle)
     except Exception as e:                                # to be handled next
         print("An error occurred when processing 'Language Selector':", e)
         pass 
 
 def chosen_casttle(msg):
-    # print('lenguaje escogido ', msg)
-    # result = loads(msg)
-    print(msg.text)
+    user = msg.from_user
+
+    users[user.id].set_casttle(msg.text)
+    users[user.id].set_name(user.username)
+
+    bot_send_message(user.id, users[user.id])
+
+def check_answer(rigth):
+    bot.register_next_step_handler(message, checker, [rigth])
+
+def checker(msg, *args):
+    if msg.text[1:] == args[0]:
+        response = 'Bravo valiente guerrero, el conocimiento es poder'
+        response += '\nPregunta agregada a tu conocimiento'
+        response += '\nHas ganado 2 exp'
+
+        bot_send_message(msg.from_user.id, response)
+        users[msg.from_user.id].exp += 2
 
 bot.polling()

@@ -1,9 +1,11 @@
 from quest import Forest
 from threading import Timer
+from init import bot_send_message, create_markup, check_answer
 
 class Hero:
 
-    def __init__(self):
+    def __init__(self, id):
+        self.player_id = id
         self.lvl = 1
         self.attack = 1
         self.defense = 1
@@ -19,11 +21,11 @@ class Hero:
         self.Name = name
 
     def set_casttle(self, casttle):
-        self.Casttle = casttle
+        self.castillo = casttle
 
     def __str__(self):
         result = ''
-        result += self.Name + ' del castillo ' + self.castillo + '\n'
+        result += self.Name + ' del castillo ' + str(self.castillo) + '\n'
         result += 'Level: ' + str(self.lvl) + '\n'
         result += 'Atk: ' + str(self.attack) + ' Def: ' + str(self.defense) + '\n'
         result += 'Exp: ' + str(self.exp) + '\n'
@@ -38,12 +40,10 @@ class Hero:
 
     def Forest(self):
         if self.stamina == 0:
-            print(self.NoStamina())
-            return
+            return self.NoStamina()
 
         if self.in_quest != None:
-            print(self.in_quest)
-            return
+            return self.in_quest
 
         self.stamina -= 1
         question = Forest(self.lvl)
@@ -57,6 +57,8 @@ class Hero:
         t = Timer(10, self.time_gone, [question], {})
         t.start()
 
+        return self.in_quest
+
     def NoStamina(self):
         # TODO: averiguar como sacar un hash para que cada jugador tenga
         # un codigo unico para invitar a otroas personas para conseguir
@@ -69,17 +71,22 @@ class Hero:
 
         self.exp += 1
         self.gold += 1
-        print('Ganaste 1 exp y 1 gold')
+        bot_send_message(self.player_id, 'Ganaste 1 exp y 1 gold')
 
         if question == None:
             return
 
-        print('En tu viaje te has encontrado con un antiguo sabio')
-        print('Este te hace la siguiente pregunta\n', '\"', question[0], '\"')
+        bot_send_message(self.player_id, 'En tu viaje te has encontrado con un antiguo sabio')
+
+        # TODO: hacerle shuffle a las posibles respuestas
+        text = 'Este te hace la siguiente pregunta\n' + '\"' + question[0] + '\"'
+
+        bot_send_message(self.player_id, text, create_markup(question[2]))
         respuesta = int(input('Cual es tu respuesta?: '))
 
-        if respuesta == question[1]:
-            print('Bravo valiente guerrero, el conocimiento es poder')
-            print('Pregunta agregada a tu conocimiento')
-            self.exp += 2
-            print('Has ganado 2 exp')
+        check_answer(question[1])
+        # if respuesta == question[1]:
+        #     print('Bravo valiente guerrero, el conocimiento es poder')
+        #     print('Pregunta agregada a tu conocimiento')
+        #     self.exp += 2
+        #     print('Has ganado 2 exp')

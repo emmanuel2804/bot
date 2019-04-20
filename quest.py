@@ -4,13 +4,13 @@ from random import Random
 # haciendo un quest, la llave del diccionario es el lvl del jugador
 # y el valor es una lista que contiene tuplas donde se almacena
 # en la primera posicion la pregunta y en la segunga la respuesta
-# Dictionary<int, List<Tuple<string, int>>> questions
+# Dictionary<int, List<Tuple<string, int, List<posibles respuestas>>>> questions
 questions = {}
 
 for i in range(1, 31):
     questions[i] = []
 
-questions[1].append(('Cuanto es 2+2?', 4))
+questions[1].append(('Cuanto es 2+2?', 4, (2, 1, 5, 4)))
 
 def Forest(lvl):
     temp = Random()
