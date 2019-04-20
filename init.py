@@ -9,7 +9,7 @@ from utils import *
 def forest(message):
     try:
         user = message.from_user
-
+        
         bot_send_message(user.id, users[user.id].Forest(message))
     except Exception as e:
         bot_send_message(user.id, 'Cancio papa dale /start primero')
@@ -27,7 +27,7 @@ def me(message):
 def start(message):
     user = message.from_user
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
-
+  
     users[user.id] = Hero(user.id)
 
     kb = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True, one_time_keyboard=True)

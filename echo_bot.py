@@ -1,5 +1,5 @@
 import telebot
-
+import telegram
 # TODO: cambiar TOKEN por mi token valido
 bot = telebot.TeleBot("878916725:AAGpCSgEJB3UvmEUexOkSPmuIWiJcnBenJ0")
 
