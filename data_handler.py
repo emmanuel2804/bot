@@ -8,9 +8,9 @@ folder = '__binaries__'
 
 #------------------------------------------------------------------------------------------
 def save_heros_states():
-    for i in users:
-        save_user(i)
-        
+    for i in users.keys():
+        save_user(users[i])
+
 def save_user(hero):
     
     try:

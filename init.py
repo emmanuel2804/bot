@@ -13,7 +13,7 @@ def forest(message):
 
         bot_send_message(user.id, users[user.id].Forest(message))
     except Exception as e:
-        bot_send_message(user.id, user.id + 'papa dale /start primero')
+        bot_send_message(user.id, user.username 'papa dale /start primero')
 
 @bot.message_handler(commands = ['me'])
 def me(message):
