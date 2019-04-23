@@ -5,6 +5,7 @@ from hero import Hero
 from initialize import *
 from utils import *
 import console
+import data_handler
 
 @bot.message_handler(commands = ['forest'])
 def forest(message):
@@ -58,19 +59,20 @@ def start(message):
 
 def main():
     # Start command console
-    print('seting environment')
+    print('setting environment')
+    data_handler.init()
+    
+    # thread_pool = {}
 
-    thread_pool = {}
-
-    shell_t = thr.Thread(target=console.shell)
-    thread_pool['shell_t'] = shell_t
-    shell_t.start()
+    # shell_t = thr.Thread(target=console.shell)
+    # thread_pool['shell_t'] = shell_t
+    # shell_t.start()
     
 
-    # start API service
-    print('Service Started!')
-    bot.polling()
-    return
+    # # start API service
+    # print('Service Started!')
+    # bot.polling()
+    # return
 
 
 if __name__ == '__main__':

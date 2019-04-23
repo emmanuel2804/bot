@@ -3,7 +3,7 @@ import pickle
 from initialize import users
 from hero import Hero
 
-
+saved_ids = {}
 folder = '__binaries__'
 
 #------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ def save_heros_states():
 def save_user(hero):
     
     try:
-        fd = os.open(hero.player_id.__str__(), os.O_WRONLY)
+        fd = os.open(folder + '/' + hero.player_id.__str__(), os.O_WRONLY)
         s = hero.__dict__
         p = pickle.dumps(s)
         os.write(fd, p)
@@ -22,7 +22,7 @@ def save_user(hero):
         print('User updated!')
 
     except Exception as e:
-        fd = os.open(hero.player_id.__str__(), os.O_WRONLY + os.O_CREAT)
+        fd = os.open(folder + '/' + hero.player_id.__str__(), os.O_WRONLY + os.O_CREAT)
         s = hero.__dict__
         p = pickle.dumps(s)
         os.write(fd, p)
@@ -34,7 +34,7 @@ def load_user_hero(user_id):
     
     try:
         # abre el archivo y lo lee si lo encuentra
-        fd = os.open(user_id.__str__(), os.O_RDONLY)
+        fd = os.open(folder + '/' + user_id.__str__(), os.O_RDONLY)
         h = os.read(fd,4096)
         os.close(fd)
 
@@ -49,12 +49,30 @@ def load_user_hero(user_id):
 
         users[user_id] = o
         print('User hero loaded')
-        
-
-
+    
     except Exception as e:
-        print(e)
-        return e
+        print(e.__str__() + '   <----UserNotLoaded')
+        return
+
+
+def save_ids():
+    fd = os.open('saved_ids', os.O_APPEND + os.O_CREAT + os.O_WRONLY)
+    # TODO
+    return
+    
+
+def init():
+    try:
+        os.mkdir(folder)
+    except Exception as e:
+        print(e.__str__() + '       <--Handled!')
+
+    # una vez iniciando entrar a la carpeta __bineries__
+    # buscando los usuarios que han sido guardados, q va a estar en un archivito llamado
+    # suid (saved user id) que estara en disco tambien
+    
+
+
 
 # test
 # a = Hero(1)
