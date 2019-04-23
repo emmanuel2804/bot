@@ -15,6 +15,15 @@ def forest(message):
     except Exception as e:
         bot_send_message(user.id, user.username + 'papa dale /start primero')
 
+@bot.message_handler(commands = ['arena'])
+def arena(message):
+    try:
+        user = message.from_user
+
+        bot_send_message(user.id, users[user.id].Arena(message))
+    except expression as identifier:
+        bot_send_message(user.id, user.username + 'papa dale /start primero')
+
 @bot.message_handler(commands = ['me'])
 def me(message):
     try:        

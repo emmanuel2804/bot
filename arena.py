@@ -15,7 +15,7 @@ def matching(hero, message):
     if heroes[hero.lvl] is None:
         heroes[hero.lvl] = (hero, message)
         hero.in_quest = 'Buscando adversario'
-        t = Timer()
+        # t = Timer()
         return False
 
     hero2 = heroes[hero.lvl]
@@ -51,6 +51,7 @@ def figth(hero1, hero2, message1, message2):
         atk1 = chose_attack(message1)
         atk2 = chose_attack(message2)
 
+        # TODO: el sleep no es lo mas indicado porque todo se muere
         time.sleep(10)
 
         def1 = None
@@ -109,3 +110,34 @@ def figth(hero1, hero2, message1, message2):
                 hero1_life = hero1_life - hero2.attack
         else:
             bot_send_message(hero1.player_id, 'Tu enemigo no ataco, no tienes de que preocuparte')
+
+    if hero1_life < hero2_life:
+        bot_send_message(hero1.player_id, 'Lo sentimos, has perdido, pero con honor\n' + \
+            'Has ganado 1 de exp')
+        
+        hero1.exp += 1
+
+        bot_send_message(hero2.player_id, 'Felicidades, has ganado\n' + \
+            'Has ganado 5 de exp')
+
+        hero2.exp += 5
+    elif hero1_life > hero2_life:
+        bot_send_message(hero2.player_id, 'Lo sentimos, has perdido, pero con honor\n' + \
+            'Has ganado 1 de exp')
+        
+        hero2.exp += 1
+
+        bot_send_message(hero1.player_id, 'Felicidades, has ganado\n' + \
+            'Has ganado 5 de exp')
+
+        hero1.exp += 5
+    else:
+        bot_send_message(hero1.player_id, 'Es poco probable pero ha ocurrido un empate\n' + \
+            'Has ganado 5 de exp')
+        
+        hero1.exp += 5
+
+        bot_send_message(hero2.player_id, 'Es poco probable pero ha ocurrido un empate\n' + \
+            'Has ganado 5 de exp')
+
+        hero2.exp += 5

@@ -1,4 +1,5 @@
 from quest import Forest
+from arena import *
 from threading import Timer
 from utils import *
 
@@ -102,4 +103,11 @@ class Hero:
         #     print('Has ganado 2 exp')
 
     def Arena(self, message):
-        
+        result = matching(self, message)
+
+        if not result:
+            t = Timer(10, no_oponente)
+
+    def no_oponente(self):
+        bot_send_message(self.player_id, 'No se encontro oponente')
+        self.in_quest = None
