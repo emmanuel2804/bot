@@ -100,3 +100,6 @@ class Hero:
         #     print('Pregunta agregada a tu conocimiento')
         #     self.exp += 2
         #     print('Has ganado 2 exp')
+
+    def Arena(self, message):
+        

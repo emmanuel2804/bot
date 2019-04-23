@@ -43,3 +43,9 @@ def checker(msg, *args):
 
         users[msg.from_user.id].exp += 2
         bot_send_message(msg.from_user.id, response)
+
+def chose_attack(message):
+    return bot.register_next_step_handler(message,return_next_message)
+
+def return_next_message(msg):
+    return msg
