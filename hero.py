@@ -17,6 +17,9 @@ class Hero:
         self.gold = 0
         self.in_quest = None
 
+        # Dictionary<int, List<Tuple<string, int, List<posibles respuestas>>>> questions
+        self.ACK = {}
+
     def set_name(self, name):
         self.Name = name
 
@@ -35,6 +38,12 @@ class Hero:
             result += 'Mana: ' + str(self.mana) + '/' + str(self.mana_base) + '\n'
 
         result += 'Gold: ' + str(self.gold)
+
+        result += '\nState:\n'
+        if self.in_quest is None:
+            result += 'Rest In Peace'
+        else:
+            result += self.in_quest
 
         return result
 
