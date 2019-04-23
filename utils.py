@@ -16,7 +16,8 @@ def bot_send_message(id, message, reply_markup=None):
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         reply_markup.add(
             types.KeyboardButton('/me'),
-            types.KeyboardButton(tree_emoji+'forest')
+            types.KeyboardButton(tree_emoji+'forest'),
+            types.KeyboardButton('/arena')
         )
     
     bot.send_message(id, message, reply_markup=reply_markup)
