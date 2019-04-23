@@ -1,4 +1,5 @@
 from quest import Forest
+from arena import *
 from threading import Timer
 from utils import *
 
@@ -16,6 +17,9 @@ class Hero:
         self.mana_base = 0
         self.gold = 0
         self.in_quest = None
+
+        # Dictionary<int, List<Tuple<string, int, List<posibles respuestas>>>> questions
+        self.ACK = {}
 
     def set_name(self, name):
         self.Name = name
@@ -35,6 +39,12 @@ class Hero:
             result += 'Mana: ' + str(self.mana) + '/' + str(self.mana_base) + '\n'
 
         result += 'Gold: ' + str(self.gold)
+
+        result += '\nState:\n'
+        if self.in_quest is None:
+            result += 'Rest In Peace'
+        else:
+            result += self.in_quest
 
         return result
 
@@ -91,3 +101,13 @@ class Hero:
         #     print('Pregunta agregada a tu conocimiento')
         #     self.exp += 2
         #     print('Has ganado 2 exp')
+
+    def Arena(self, message):
+        result = matching(self, message)
+
+        if not result:
+            t = Timer(10, no_oponente)
+
+    def no_oponente(self):
+        bot_send_message(self.player_id, 'No se encontro oponente')
+        self.in_quest = None
