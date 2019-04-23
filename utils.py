@@ -23,7 +23,7 @@ def bot_send_message(id, message, reply_markup=None):
 
 def chosen_casttle(msg):
     user = msg.from_user
-
+    
     users[user.id].set_casttle(msg.text)
     users[user.id].set_name(user.username)
 

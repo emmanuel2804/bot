@@ -4,15 +4,16 @@ from json import loads
 from hero import Hero
 from initialize import *
 from utils import *
+import console
 
 @bot.message_handler(commands = ['forest'])
 def forest(message):
     try:
         user = message.from_user
-        
+
         bot_send_message(user.id, users[user.id].Forest(message))
     except Exception as e:
-        bot_send_message(user.id, 'Cancio papa dale /start primero')
+        bot_send_message(user.id, user.username + 'papa dale /start primero')
 
 @bot.message_handler(commands = ['me'])
 def me(message):
@@ -22,6 +23,11 @@ def me(message):
         bot_send_message(user.id, users[user.id])
     except Exception as e:
         bot_send_message(user.id, 'Cancio papa dale /start primero')
+
+@bot.message_handler(commands = ['help'])
+def help(message):
+    user = message.from_user
+    bot.send_message(id, 'Hello!! Iam in development phase, anything you can help, notify to my masters :-) ')
 
 @bot.message_handler(commands = ['start'])
 def start(message):
@@ -49,4 +55,24 @@ def start(message):
         print("An error occurred when processing 'Language Selector':", e)
         pass
 
-bot.polling()
+
+def main():
+    # Start command console
+    print('seting environment')
+
+    thread_pool = {}
+
+    shell_t = thr.Thread(target=console.shell)
+    thread_pool['shell_t'] = shell_t
+    shell_t.start()
+    
+
+    # start API service
+    print('Service Started!')
+    bot.polling()
+    return
+
+
+if __name__ == '__main__':
+    main()
+    
