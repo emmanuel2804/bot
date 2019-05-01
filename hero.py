@@ -32,7 +32,7 @@ class Hero:
         result += self.Name + ' del castillo ' + str(self.castillo) + '\n'
         result += 'Level: ' + str(self.lvl) + '\n'
         result += 'Atk: ' + str(self.attack) + ' Def: ' + str(self.defense) + '\n'
-        result += 'Exp: ' + str(self.exp) + '\n'
+        result += 'Exp: ' + str(self.exp) + '/' + str(exp_for_lvl[self.lvl + 1]) + '\n'
         result += 'Stamina: ' + str(self.stamina) + '/' + str(self.stamina_base) + '\n'
         
         if self.lvl >= 10:
