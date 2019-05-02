@@ -5,6 +5,13 @@ from hero import Hero
 
 saved_ids = {}
 folder = '__binaries__'
+functions_folder = '__functions__'
+methods_folder = '__methods__'
+
+#aqui estaran guardadas los fragmentos de las conferencias
+#bajo la expresion regular cf_id_fragment
+#ejemplo cf_02_07
+conference_ack = '__conferences__'
 
 #------------------------------------------------------------------------------------------
 def save_heros_states():
@@ -56,7 +63,15 @@ def load_user_hero(user_id):
 
 
 def save_ids():
-    fd = os.open('saved_ids', os.O_APPEND + os.O_CREAT + os.O_WRONLY)
+    fd = os.open(folder+'/'+'saved_ids', os.O_APPEND + os.O_CREAT + os.O_WRONLY)
+    id_list = []
+    for i in users.keys():
+        id_list.append(i)
+    
+    try:
+        
+    except:
+
     # TODO
     return
     
@@ -66,8 +81,19 @@ def init():
         os.mkdir(folder)
     except Exception as e:
         print(e.__str__() + '       <--Handled!')
-
-    # una vez iniciando entrar a la carpeta __bineries__
+    try:
+        os.mkdir(functions_folder)
+    except Exception as e:
+        print(e.__str__() + '       <--Handled!')
+    try:
+        os.mkdir(methods_folder)
+    except Exception as e:
+        print(e.__str__() + '       <--Handled!')
+    try:
+        os.mkdir(conference_ack)
+    except Exception as e:
+        print(e.__str__() + '       <--Handled!')
+    # una vez iniciando entrar a la carpeta __binaries__
     # buscando los usuarios que han sido guardados, q va a estar en un archivito llamado
     # suid (saved user id) que estara en disco tambien
     

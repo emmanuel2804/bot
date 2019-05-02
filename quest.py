@@ -15,7 +15,7 @@ questions[1].append(('La raiz cuadrada de 100 es ...', 10, (1, 10, 50, 25)))
 questions[1].append(('12 * 12', 144, (121, 255, 128, 144)))
 questions[1].append(('2 elevado a la 10', 1024, (1024, 400, 512, 4000)))
 questions[1].append(('1 + 1 + 1 + 1 * 0 + 1', 1, (2, 4, 5, 1)))
-questions[1].append((str(Random.random()) + ' elevado a la 0', 1, (Random.random(), 0.5, 1, 0)))
+questions[1].append((str(0.1) + ' elevado a la 0', 1, (0.3, 0.5, 1, 0)))
 
 def Forest(lvl):
     temp = Random()

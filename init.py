@@ -42,6 +42,7 @@ def help(message):
 @bot.message_handler(commands = ['start'])
 def start(message):
     user = message.from_user
+    print(message.chat_id)
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
   
     users[user.id] = Hero(user.id)
@@ -71,17 +72,16 @@ def main():
     print('setting environment')
     data_handler.init()
     
-    # thread_pool = {}
+    thread_pool = {}
 
-    # shell_t = thr.Thread(target=console.shell)
-    # thread_pool['shell_t'] = shell_t
-    # shell_t.start()
+    shell_t = thr.Thread(target=console.shell)
+    thread_pool['shell_t'] = shell_t
+    shell_t.start()
     
-
-    # # start API service
-    # print('Service Started!')
-    # bot.polling()
-    # return
+    # start API service
+    print('Service Started!')
+    bot.polling()
+    return
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 from quest import Forest
 from arena import *
-from threading import Timer
+import time
+import threading as thr
 from utils import *
 
 class Hero:
@@ -17,6 +18,11 @@ class Hero:
         self.mana_base = 0
         self.gold = 0
         self.in_quest = None
+        self.regenerating = False
+        self.stamina_regen_thread = thr.Thread(target= self.stamina_regen)
+        self.stamina_regen_thread.start()
+        # self.t = thr.Thread(target = self.testing)
+        # self.t.start()
 
         # Dictionary<int, List<Tuple<string, int, List<posibles respuestas>>>> questions
         self.ACK = {}
@@ -111,3 +117,31 @@ class Hero:
     def no_oponente(self):
         bot_send_message(self.player_id, 'No se encontro oponente')
         self.in_quest = None
+
+    def stamina_regen(self):
+        
+        while(True):
+            if(self.stamina < self.stamina_base and not self.regenerating):
+                print('regenerando stamina')
+                timer = thr.Timer(8,self.add_stamina_point,args=None)
+                timer.start()
+                self.regenerating = True
+                
+
+                
+                
+    def add_stamina_point(self):
+        self.regenerating = False
+        self.stamina+=1
+        print(self.stamina)
+    
+    # def testing(self):
+    #     while(True):
+    #         time.sleep(1)
+    #         print('Caca')
+    
+            
+# a = Hero(15)
+# time.sleep(17)
+# a.stamina-=1
+

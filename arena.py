@@ -31,6 +31,7 @@ def figth(hero1, hero2, message1, message2):
 
     while hero1_life > 0 and hero2_life > 0:
         rand = Random()
+        
         # TODO: cambiar ACK[1] para que escoja preguntas de todos
         # los niveles de conocimientos
         questions1 = rand.sample(hero1.ACK[1], 3)
