@@ -68,9 +68,9 @@ def save_ids():
     for i in users.keys():
         id_list.append(i)
     
-    try:
-        
-    except:
+    #try:
+
+    #except:
 
     # TODO
     return
