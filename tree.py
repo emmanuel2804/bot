@@ -25,3 +25,11 @@ class Tree:
         else: return False
 
         return left and rigth
+
+    # def count(self):
+    #     result = 1
+
+    #     if self.left is not None: result += self.left.count()
+    #     if self.rigth is not None: result += self.rigth.count()
+
+    #     return result
