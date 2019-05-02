@@ -116,6 +116,7 @@ class Hero:
         if not result:
             t = Timer(10, self.no_oponente)
             t.start()
+            return 'El campo de batalla esta desolado ,no hay indicios de oponentes, esperemos...'
 
     def no_oponente(self):
         bot_send_message(self.player_id, 'No se encontro oponente')
