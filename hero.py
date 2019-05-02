@@ -114,7 +114,7 @@ class Hero:
         result = matching(self, message)
 
         if not result:
-            t = Timer(10, self.no_oponente)
+            t = Timer(120, self.no_oponente)
             t.start()
             return 'El campo de batalla esta desolado ,no hay indicios de oponentes, esperemos...'
 
