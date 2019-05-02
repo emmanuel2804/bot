@@ -22,7 +22,7 @@ def arena(message):
         user = message.from_user
 
         bot_send_message(user.id, users[user.id].Arena(message))
-    except expression as identifier:
+    except Exception as identifier:
         bot_send_message(user.id, user.username + 'papa dale /start primero')
 
 @bot.message_handler(commands = ['me'])
