@@ -82,6 +82,7 @@ class Hero:
         self.exp += 1
         self.gold += 1
         bot_send_message(self.player_id, 'Ganaste 1 exp y 1 gold')
+        self.lvl_up()
 
         if question == None:
             return
@@ -111,3 +112,11 @@ class Hero:
     def no_oponente(self):
         bot_send_message(self.player_id, 'No se encontro oponente')
         self.in_quest = None
+
+    def lvl_up(self):
+        if self.exp >= exp_for_lvl[self.lvl + 1]:
+            bot_send_message(self.player_id, "Felicitaciones, has subido de nivel")
+
+            self.lvl += 1
+            self.attack +=1
+            self.defense += 1
