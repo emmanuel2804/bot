@@ -11,6 +11,9 @@ import os, time
 # Dictionary<int(level), Tuple(Hero, message_del_Hero)>
 heroes = {}
 
+for i in range(100):
+    heroes[i] = None
+
 def matching(hero, message):
     if heroes[hero.lvl] is None:
         heroes[hero.lvl] = (hero, message)

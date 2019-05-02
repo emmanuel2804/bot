@@ -22,7 +22,7 @@ def arena(message):
         user = message.from_user
 
         bot_send_message(user.id, users[user.id].Arena(message))
-    except expression as identifier:
+    except Exception as identifier:
         bot_send_message(user.id, user.username + 'papa dale /start primero')
 
 @bot.message_handler(commands = ['me'])
@@ -42,7 +42,7 @@ def help(message):
 @bot.message_handler(commands = ['start'])
 def start(message):
     user = message.from_user
-    print(message.chat_id)
+    # print(message.chat_id)
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
   
     users[user.id] = Hero(user.id)
