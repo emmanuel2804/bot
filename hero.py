@@ -38,7 +38,7 @@ class Hero:
         result += self.Name + ' del castillo ' + str(self.castillo) + '\n'
         result += 'Level: ' + str(self.lvl) + '\n'
         result += 'Atk: ' + str(self.attack) + ' Def: ' + str(self.defense) + '\n'
-        result += 'Exp: ' + str(self.exp) + '\n'
+        result += 'Exp: ' + str(self.exp) + '/' + str(exp_for_lvl[self.lvl + 1]) + '\n'
         result += 'Stamina: ' + str(self.stamina) + '/' + str(self.stamina_base) + '\n'
         
         if self.lvl >= 10:
@@ -88,6 +88,7 @@ class Hero:
         self.exp += 1
         self.gold += 1
         bot_send_message(self.player_id, 'Ganaste 1 exp y 1 gold')
+        self.lvl_up()
 
         if question == None:
             return
@@ -128,20 +129,16 @@ class Hero:
                 self.regenerating = True
                 
 
-                
-                
     def add_stamina_point(self):
         self.regenerating = False
         self.stamina+=1
         print(self.stamina)
     
-    # def testing(self):
-    #     while(True):
-    #         time.sleep(1)
-    #         print('Caca')
-    
-            
-# a = Hero(15)
-# time.sleep(17)
-# a.stamina-=1
 
+    def lvl_up(self):
+        if self.exp >= exp_for_lvl[self.lvl + 1]:
+            bot_send_message(self.player_id, "Felicitaciones, has subido de nivel")
+
+            self.lvl += 1
+            self.attack +=1
+            self.defense += 1
