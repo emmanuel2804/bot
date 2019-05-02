@@ -3,6 +3,8 @@ from arena import *
 import time
 import threading as thr
 from utils import *
+from datetime import datetime, timedelta
+from math import floor
 
 class Hero:
 
@@ -35,6 +37,7 @@ class Hero:
 
     def __str__(self):
         result = ''
+        result += time_for_next_battle()[2] + '\n'
         result += self.Name + ' del castillo ' + str(self.castillo) + '\n'
         result += 'Level: ' + str(self.lvl) + '\n'
         result += 'Atk: ' + str(self.attack) + ' Def: ' + str(self.defense) + '\n'
@@ -142,3 +145,25 @@ class Hero:
             self.lvl += 1
             self.attack +=1
             self.defense += 1
+
+    def time_for_next_battle(self):
+        now = datetime.now()
+        
+        if now.hour >= 12:
+            next_battle = datetime(now.year, now.month, now.day + 1, 12)
+        else:
+            next_battle = datetime(now.year, now.month, now.day, 12)
+
+        diff = next_battle - now
+
+        l_min = floor((diff.seconds / 60) % 60)
+        l_hour = floor(diff.seconds / 3600)
+
+        result = "Batalla en "
+
+        if l_hour == 0:
+            result += str(l_min) + " minutos"
+        else:
+            result += str(l_hour) + " h " + str(l_min) + " minutos"
+
+        return (l_hour, l_min, result)

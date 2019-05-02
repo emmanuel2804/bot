@@ -1,7 +1,7 @@
 from initialize import *
 from telebot import types
 
-exp_for_lvl = {1:0,     11:721,	    21:6719, 	31:54934, 	41:192353,\
+exp_for lvl = {1:0,     11:721,	    21:6719, 	31:54934, 	41:192353,\
                2:5,     12:902,	    22:8399, 	32:63979, 	42:213765,\
                3:15,    13:1127, 	23:10498, 	33:73838, 	43:237105,\
                4:38,    14:1409, 	24:13123, 	34:84584, 	44:262545,\
@@ -55,6 +55,7 @@ def checker(msg, *args):
 
         users[msg.from_user.id].exp += 2
         bot_send_message(msg.from_user.id, response)
+        users[msg.from_user.id].lvl_up()
 
 def chose_attack(message):
     return bot.register_next_step_handler(message,return_next_message)
