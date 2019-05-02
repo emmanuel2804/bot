@@ -110,6 +110,7 @@ class Hero:
         #     print('Has ganado 2 exp')
 
     def Arena(self, message):
+        print('Entrando a arena llamando a matching')
         result = matching(self, message)
 
         if not result:

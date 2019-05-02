@@ -18,6 +18,7 @@ def matching(hero, message):
     if heroes[hero.lvl] is None:
         heroes[hero.lvl] = (hero, message)
         hero.in_quest = 'Buscando adversario'
+        print('Buscando adversario')
         # t = Timer()
         return False
 
@@ -26,6 +27,7 @@ def matching(hero, message):
     figth(hero, hero2[0], message, hero2[1])
 
 def figth(hero1, hero2, message1, message2):
+    print('fight')
     hero1_life = 100
     hero2_life = 100
 
