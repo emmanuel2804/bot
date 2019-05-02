@@ -114,7 +114,7 @@ class Hero:
         result = matching(self, message)
 
         if not result:
-            t = Timer(10, no_oponente)
+            t = Timer(10, self.no_oponente)
 
     def no_oponente(self):
         bot_send_message(self.player_id, 'No se encontro oponente')
