@@ -123,7 +123,7 @@ class Hero:
         while(True):
             if(self.stamina < self.stamina_base and not self.regenerating):
                 print('regenerando stamina')
-                timer = thr.Timer(8,self.add_stamina_point,args=None)
+                timer = thr.Timer(30,self.add_stamina_point,args=None)
                 timer.start()
                 self.regenerating = True
                 
