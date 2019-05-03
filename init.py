@@ -23,7 +23,7 @@ def arena(message):
 
         bot_send_message(user.id, users[user.id].Arena(message))
     except Exception as identifier:
-        bot_send_message(user.id, user.username + 'papa dale /start primero')
+        bot_send_message(user.id, user.username + ' papa dale /start primero' +'\n' +identifier.__str__())
 
 @bot.message_handler(commands = ['set_node'])
 def set_node(message):

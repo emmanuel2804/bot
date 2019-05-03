@@ -1,4 +1,4 @@
-from quest import Forest
+from quest import *
 from arena import *
 import time
 import threading as thr
@@ -30,7 +30,7 @@ class Hero:
         # self.t.start()
 
         # Dictionary<int, List<Tuple<string, int, List<posibles respuestas>>>> questions
-        self.ACK = {}
+        self.ACK = questions
 
     def set_name(self, name):
         self.Name = name
@@ -116,10 +116,13 @@ class Hero:
         #     print('Has ganado 2 exp')
 
     def Arena(self, message):
+        print('Entrando a arena llamando a matching')
         result = matching(self, message)
 
         if not result:
-            t = Timer(10, no_oponente)
+            t = Timer(120, self.no_oponente)
+            t.start()
+            return 'El campo de batalla esta desolado ,no hay indicios de oponentes, esperemos...'
 
     def no_oponente(self):
         bot_send_message(self.player_id, 'No se encontro oponente')
