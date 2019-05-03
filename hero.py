@@ -5,6 +5,7 @@ import threading as thr
 from utils import *
 from datetime import datetime, timedelta
 from math import floor
+from castle import *
 
 class Hero:
 
@@ -23,6 +24,8 @@ class Hero:
         self.regenerating = False
         self.stamina_regen_thread = thr.Thread(target= self.stamina_regen)
         self.stamina_regen_thread.start()
+        self.current_node = None
+        self.nodes = []
         # self.t = thr.Thread(target = self.testing)
         # self.t.start()
 
@@ -167,3 +170,14 @@ class Hero:
             result += str(l_hour) + " h " + str(l_min) + " minutos"
 
         return (l_hour, l_min, result)
+
+    def put_node(self):
+        self.in_quest = 'La batalla se acerca, saca tus nodos y arma un buen arbol de defensa.\n'\
+            + 'Recuerda que tus enemigos pueden encontrar brechas en tu arbol de defensa'
+        bot_send_message(self.player_id, self.in_quest)
+
+        if self.current_node is None:
+            self.current_node = castles[self.castillo].castle_tree
+
+        mk = create_markup('/set_node', '/left_child', '/rigth_child')
+        bot_send_message(self.player_id, self.current_node, reply_markup=mk)

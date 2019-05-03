@@ -1,6 +1,7 @@
 class Tree:
-    def __init__(self, value, left = None, rigth = None):
+    def __init__(self, value = None, father = None, left = None, rigth = None):
         self.value = value
+        self.father = father
         self.left = left
         self.rigth = rigth
 
@@ -25,6 +26,14 @@ class Tree:
         else: return False
 
         return left and rigth
+
+    def __str__(self):
+        result = '^\n' + \
+                 '| /back_to_father\n' + \
+                 ' ' +      self.value       + ' \n' + \
+                 '/' + ' ' * len(self.value) + '\\'
+
+        return result
 
     # def count(self):
     #     result = 1
