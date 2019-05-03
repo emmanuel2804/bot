@@ -1,5 +1,6 @@
 from initialize import *
 from telebot import types
+from tree import *
 
 exp_for_lvl = {1:0,     11:721,	    21:6719, 	31:54934, 	41:192353,\
                2:5,     12:902,	    22:8399, 	32:63979, 	42:213765,\
@@ -27,8 +28,9 @@ def bot_send_message(id, message, reply_markup=None):
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         reply_markup.add(
             types.KeyboardButton('/me'),
-            types.KeyboardButton(tree_emoji+'forest'),
-            types.KeyboardButton('/arena')
+            types.KeyboardButton('/forest'),
+            types.KeyboardButton('/arena'),
+            types.KeyboardButton('/inv')
         )
     
     bot.send_message(id, message, reply_markup=reply_markup)
@@ -51,8 +53,10 @@ def checker(msg, *args):
     if msg.text == str(args[0][0]):
         response = 'Bravo valiente guerrero, el conocimiento es poder'
         response += '\nPregunta agregada a tu conocimiento'
-        response += '\nHas ganado 2 exp'
+        response += '\nHas ganado un nodo para tu arbol de defensa y 2 de exp'
 
         users[msg.from_user.id].exp += 2
+        users[msg.from_user.id].nodes.append(get_random_node())
         bot_send_message(msg.from_user.id, response)
+        users[msg.from_user.id].lvl_up()
 

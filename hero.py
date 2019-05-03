@@ -3,6 +3,9 @@ from arena import *
 import time
 import threading as thr
 from utils import *
+from datetime import datetime, timedelta
+from math import floor
+from castle import *
 
 class Hero:
 
@@ -21,6 +24,8 @@ class Hero:
         self.regenerating = False
         self.stamina_regen_thread = thr.Thread(target= self.stamina_regen)
         self.stamina_regen_thread.start()
+        self.current_node = None
+        self.nodes = ['nodo1', 'nodo2']
         # self.t = thr.Thread(target = self.testing)
         # self.t.start()
 
@@ -35,6 +40,7 @@ class Hero:
 
     def __str__(self):
         result = ''
+        result += self.time_for_next_battle()[2] + '\n'
         result += self.Name + ' del castillo ' + str(self.castillo) + '\n'
         result += 'Level: ' + str(self.lvl) + '\n'
         result += 'Atk: ' + str(self.attack) + ' Def: ' + str(self.defense) + '\n'
@@ -145,3 +151,45 @@ class Hero:
             self.lvl += 1
             self.attack +=1
             self.defense += 1
+
+    def time_for_next_battle(self):
+        now = datetime.now()
+        
+        if now.hour >= 12:
+            next_battle = datetime(now.year, now.month, now.day + 1, 12)
+        else:
+            next_battle = datetime(now.year, now.month, now.day, 12)
+
+        diff = next_battle - now
+
+        l_min = floor((diff.seconds / 60) % 60)
+        l_hour = floor(diff.seconds / 3600)
+
+        result = "Batalla en "
+
+        if l_hour == 0:
+            result += str(l_min) + " minutos"
+        else:
+            result += str(l_hour) + " h " + str(l_min) + " minutos"
+
+        return (l_hour, l_min, result)
+
+    def put_node(self):
+        self.in_quest = 'La batalla se acerca, saca tus nodos y arma un buen arbol de defensa.\n'\
+            + 'Recuerda que tus enemigos pueden encontrar brechas en tu arbol de defensa'
+        bot_send_message(self.player_id, self.in_quest)
+
+        if self.current_node is None:
+            self.current_node = castles[self.castillo].castle_tree
+
+        mk = create_markup('/set_node', '/left_child', '/rigth_child')
+        bot_send_message(self.player_id, self.current_node, reply_markup=mk)
+
+    def chose_target(self):
+        text = "Escoge un castillo para atacar\n"
+
+        for castle in castles.keys():
+            if castle != self.castillo:
+                text += '\\' + castle + '\n'
+
+        bot_send_message(self.player_id, text)
