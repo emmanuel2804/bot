@@ -20,7 +20,7 @@ def matching(hero, message):
         hero.in_quest = 'Buscando adversario'
         print('Buscando adversario')
         # t = Timer()
-        return False
+        return False 
 
     hero2 = heroes[hero.lvl]
     heroes[hero.lvl] = None
