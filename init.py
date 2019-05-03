@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 from json import loads
 from hero import Hero
+from castle import *
 from initialize import *
 from utils import *
 import console
@@ -63,6 +64,26 @@ def back_to_father(message):
         bot_send_message(user.id, 'Nodo actual ' + str(users[user.id].current_node))
     except Exception as identifier:
         bot_send_message(user.id, 'Error en back_to_father\n' + str(identifier))
+
+@bot.message_handler(commands = ['Fermat', 'Lagrange', 'Newton', 'Gauss', 'Neumann'])
+def chose_target(message):
+    try:
+        user = message.from_user
+
+        target = message.text[1:]
+        hero = users[user.id]
+
+        if hero.castillo == target:
+            bot_send_message(user.id, "Castillo incorrecto")
+            hero.chose_target()
+            return
+
+        path = castles[target].get_path()
+        photo = open(path, 'rb')
+        bot.send_photo(user.id, photo)
+        photo.close()
+    except Exception as identifier:
+        bot_send_message(user.id, 'Error en chose_target\n' + str(identifier))
 
 @bot.message_handler(commands = ['me'])
 def me(message):

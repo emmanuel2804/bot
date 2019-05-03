@@ -26,7 +26,7 @@ class Battle:
     def tree_construction(self):
         threads = []
 
-        for castle in castles.keys:
+        for castle in castles.keys():
             for hero in castles[castle]:
                 # hero.in_quest = "Armando arbol de defensa"
                 threads.append(thr.Thread(target=hero.put_node))

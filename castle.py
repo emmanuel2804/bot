@@ -1,9 +1,11 @@
+import networkx as nx
+
 class Castle:
     def __init__(self, name):
         self.name = name
         self.heros = []
-        self.mission_tree = None
-        self.castle_tree = None
+        self.mission_tree = nx.Graph()
+        self.castle_tree = nx.Graph()
 
     def add_hero(self, hero):
         self.heros.append(hero)

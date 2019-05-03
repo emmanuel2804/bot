@@ -184,3 +184,10 @@ class Hero:
 
         mk = create_markup('/set_node', '/left_child', '/rigth_child')
         bot_send_message(self.player_id, self.current_node, reply_markup=mk)
+
+    def chose_target(self):
+        text = "Escoge un castillo para atacar\n"
+
+        for castle in castles.keys():
+            if castle != self.castillo:
+                text += '\\' + castle + '\n'
