@@ -10,6 +10,7 @@ import os, time
 # espera de otro de su mismo nivel
 # Dictionary<int(level), Tuple(Hero, message_del_Hero)>
 heroes = {}
+fights = {}
 
 for i in range(100):
     heroes[i] = None
@@ -34,6 +35,9 @@ def figth(hero1, hero2, message1, message2):
     hero1.in_quest = 'En batalla, vida: ' + str(hero1_life)
     hero2.in_quest = 'En batalla, vida: ' + str(hero2_life)
 
+    fights[hero1.player_id] = ''
+    fights[hero2.player_id] = ''
+
     while hero1_life > 0 and hero2_life > 0:
         rand = Random()
         
@@ -54,11 +58,14 @@ def figth(hero1, hero2, message1, message2):
         atk1 = None
         atk2 = None
 
-        atk1 = chose_attack(message1)
-        atk2 = chose_attack(message2)
-
-        # TODO: el sleep no es lo mas indicado porque todo se muere
+        chose_attack(message1)
+        chose_attack(message2)
+        
+         # TODO: el sleep no es lo mas indicado porque todo se muere
         time.sleep(10)
+
+        atk1 = fights[hero1.player_id]
+        atk2 = fights[hero2.player_id]
 
         def1 = None
         def2 = None
@@ -147,3 +154,12 @@ def figth(hero1, hero2, message1, message2):
             'Has ganado 5 de exp')
 
         hero2.exp += 5
+
+
+def chose_attack(message):
+    return bot.register_next_step_handler(message,return_next_message)
+
+def return_next_message(msg):
+    user = msg.from_user
+    fights[user.id] = msg.text
+    return
