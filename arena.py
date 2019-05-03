@@ -162,5 +162,5 @@ def chose_attack(message):
 def return_next_message(msg):
     user = msg.from_user
     fights[user.id] = msg.text
-    print(user.id +'escogio'+' '+msg.text)
+    print(user.username +'escogio'+' '+msg.text)
     return
