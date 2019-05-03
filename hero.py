@@ -191,3 +191,5 @@ class Hero:
         for castle in castles.keys():
             if castle != self.castillo:
                 text += '\\' + castle + '\n'
+
+        bot_send_message(self.player_id, text)

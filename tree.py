@@ -91,10 +91,26 @@ G.add_edge(nodos[3], nodos[6])
 G.add_edge(nodos[6], nodos[7])
 G.add_edge(nodos[6], nodos[8])
 
+
 pos = hierarchy_pos(G, root=nodos[0], width=100.)
 
 # nx.draw(G, pos=pos, with_labels=True, arrows=False)
 # plt.show()
+
+def graphs_equals(graph1, graph2):
+    nodes = graph1.nodes()
+
+    for node in nodes:
+        if not graph2.nodes.__contains__(node):
+            return False
+
+    edges = graph1.edges()
+
+    for edge in edges:
+        if not graph2.edges().__contains__(edge):
+            return False
+        
+    return True
 
 def get_random_node():
     return random.sample(nodos, 1)[0]

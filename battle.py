@@ -14,7 +14,7 @@ class Battle:
         # OJO quitar el comentario de esta linea y ponerlo en la de abajo
         # para que el juego funcione correctamente
         # now = datetime.now()
-        now = datetime(2019, 5, 3, 11, 40)
+        now = datetime(2019, 5, 3, 11, 51)
 
         if now.hour == 11 and now.minute >= 30 and now.minute < 50 and not work_in_tree:
             work_in_tree = True
@@ -36,3 +36,10 @@ class Battle:
                 threads[-1].start()
 
     def sharing_tree(self):
+        threads = []
+
+        for castle in castles.keys():
+            for hero in castles[castle]:
+                # hero.in_quest = "Armando arbol de defensa"
+                threads.append(thr.Thread(target=hero.chose_target))
+                threads[-1].start()

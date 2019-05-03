@@ -79,7 +79,7 @@ def chose_target(message):
             hero.chose_target()
             return
 
-        path = castles[target].get_path()
+        path = get_path(castles[target].castle_tree)
         photo = open(path, 'rb')
         bot.send_photo(user.id, photo)
         photo.close()
