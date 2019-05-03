@@ -11,7 +11,10 @@ class Battle:
 
     def run_battle(self):
         work_in_tree = False
-        now = datetime.now()
+        # OJO quitar el comentario de esta linea y ponerlo en la de abajo
+        # para que el juego funcione correctamente
+        # now = datetime.now()
+        now = datetime(2019, 5, 3, 11, 40)
 
         if now.hour == 11 and now.minute >= 30 and now.minute < 50 and not work_in_tree:
             work_in_tree = True

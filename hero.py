@@ -25,7 +25,7 @@ class Hero:
         self.stamina_regen_thread = thr.Thread(target= self.stamina_regen)
         self.stamina_regen_thread.start()
         self.current_node = None
-        self.nodes = []
+        self.nodes = ['nodo1', 'nodo2']
         # self.t = thr.Thread(target = self.testing)
         # self.t.start()
 
@@ -40,7 +40,7 @@ class Hero:
 
     def __str__(self):
         result = ''
-        result += time_for_next_battle()[2] + '\n'
+        result += self.time_for_next_battle()[2] + '\n'
         result += self.Name + ' del castillo ' + str(self.castillo) + '\n'
         result += 'Level: ' + str(self.lvl) + '\n'
         result += 'Atk: ' + str(self.attack) + ' Def: ' + str(self.defense) + '\n'

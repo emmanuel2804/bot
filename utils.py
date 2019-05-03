@@ -2,7 +2,7 @@ from initialize import *
 from telebot import types
 from tree import *
 
-exp_for lvl = {1:0,     11:721,	    21:6719, 	31:54934, 	41:192353,\
+exp_for_lvl = {1:0,     11:721,	    21:6719, 	31:54934, 	41:192353,\
                2:5,     12:902,	    22:8399, 	32:63979, 	42:213765,\
                3:15,    13:1127, 	23:10498, 	33:73838, 	43:237105,\
                4:38,    14:1409, 	24:13123, 	34:84584, 	44:262545,\
@@ -28,8 +28,9 @@ def bot_send_message(id, message, reply_markup=None):
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         reply_markup.add(
             types.KeyboardButton('/me'),
-            types.KeyboardButton(tree_emoji+'forest'),
-            types.KeyboardButton('/arena')
+            types.KeyboardButton('/forest'),
+            types.KeyboardButton('/arena'),
+            types.KeyboardButton('/inv')
         )
     
     bot.send_message(id, message, reply_markup=reply_markup)

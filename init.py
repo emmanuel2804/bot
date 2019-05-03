@@ -7,6 +7,7 @@ from initialize import *
 from utils import *
 import console
 import data_handler
+import re
 
 @bot.message_handler(commands = ['forest'])
 def forest(message):
@@ -94,6 +95,26 @@ def me(message):
     except Exception as e:
         bot_send_message(user.id, 'Cancio papa dale /start primero')
 
+@bot.message_handler(commands = ['inv'])
+def inv(message):
+    print('entro en el metodo inv')
+    try:
+        user = message.from_user
+
+        print('user id ', user.id)
+        l = users[user.id].nodes
+        print(l)
+        result = ''
+        count = 0
+
+        for i in l:
+            result += i + ' /i' + str(count) + '\n'
+            count += 1
+        print('termino de armar el inv ' + result)
+        bot_send_message(user.id, result)
+    except Exception as identifier:
+        bot_send_message(user.id, 'aqui se rompe\n' + str(identifier))
+
 @bot.message_handler(commands = ['help'])
 def help(message):
     user = message.from_user
@@ -126,6 +147,28 @@ def start(message):
         print("An error occurred when processing 'Language Selector':", e)
         pass
 
+@bot.message_handler(commands = ['set_edge'])
+def set_edge(message):
+    try:
+        user = message.from_user
+
+        src = message.text.split()[1]
+        dst = message.text.split()[2]
+
+        item = users[user.id].nodes[int(dst[1:])]
+        castles[users[user.id].castillo].set_edge(int(src), item)
+    except Exception as identifier:
+        bot_send_message(user.id, 'Error, el uso correcto es /set_edge {padre id} {hijo id}\n' + str(identifier))
+
+@bot.message_handler(commands = ['update_tree'])
+def update_tree(message):
+    user = message.from_user
+    path = get_path(castles[users[user.id].castillo].castle_tree)
+    
+    photo = open(path, 'rb')
+    bot.send_photo(user.id, photo)
+    photo.close()
+    bot_send_message(user.id, '/update_tree\n/set_edge {src id} {dst id}')
 
 def main():
     # Start command console

@@ -93,8 +93,16 @@ G.add_edge(nodos[6], nodos[8])
 
 pos = hierarchy_pos(G, root=nodos[0], width=100.)
 
-nx.draw(G, pos=pos, with_labels=True, arrows=False)
+# nx.draw(G, pos=pos, with_labels=True, arrows=False)
 # plt.show()
 
 def get_random_node():
     return random.sample(nodos, 1)[0]
+
+def get_path(graph, root=None):
+    print(type(graph))
+    pos = hierarchy_pos(graph, root=root)
+    nx.draw(graph, pos=pos, with_labels=True, arrows=False)
+    name = str(graph.__hash__())
+    plt.savefig(name + '.png')
+    return name + '.png'
