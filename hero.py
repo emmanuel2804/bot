@@ -105,7 +105,7 @@ class Hero:
         bot_send_message(self.player_id, text, create_markup(question[2]))
         # respuesta = int(input('Cual es tu respuesta?: '))
 
-        check_answer(question[1], message)
+        check_answer(question, message)
         # if respuesta == question[1]:
         #     print('Bravo valiente guerrero, el conocimiento es poder')
         #     print('Pregunta agregada a tu conocimiento')

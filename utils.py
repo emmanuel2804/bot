@@ -60,19 +60,21 @@ def chosen_casttle(msg):
 
     bot_send_message(user.id, users[user.id])
 
-def check_answer(rigth, message):
-    bot.register_next_step_handler(message, checker, [rigth])
+def check_answer(quest, message):
+    bot.register_next_step_handler(message, checker, quest)
 
 def checker(msg, *args):
     # print(type(msg.text))
     # print(type(args[0][0]))
     # print(msg.text[1:] == str(args[0][0]))
-    if msg.text == str(args[0][0]):
+    # print('antes del if del checker: ', args[0])
+    if msg.text == str(args[0][1]):
         response = 'Bravo valiente guerrero, el conocimiento es poder'
         response += '\nPregunta agregada a tu conocimiento'
         response += '\nHas ganado un nodo para tu arbol de defensa y 2 de exp'
 
         users[msg.from_user.id].exp += 2
+        users[msg.from_user.id].ACK[users[msg.from_user.id].lvl].append(args[0])
         users[msg.from_user.id].nodes.append(get_random_node())
         bot_send_message(msg.from_user.id, response)
         users[msg.from_user.id].lvl_up()
