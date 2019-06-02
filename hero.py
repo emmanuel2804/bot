@@ -70,10 +70,7 @@ class Hero:
         self.stamina -= 1
         question = Forest(self.lvl)
 
-        # TODO: hacer aqui la pincha con hilos, crear un metodo que cuando
-        # se cumpla t tiempo ponga en falso self.in_quest, sume la exp y
-        # gold obtenido en el quest y te realice la pregunta en caso de que
-        # te toque alguna. Si aceptaste en la pregunta agregarla a tus
+        # Si aceptaste en la pregunta agregarla a tus
         # posibles preguntas
         self.in_quest = 'Viajando por el bosque en busca de nuevos conocimientos'
         t = Timer(10, self.time_gone, [question, message], {})
@@ -116,6 +113,9 @@ class Hero:
         #     print('Has ganado 2 exp')
 
     def Arena(self, message):
+        if self.in_quest != None:
+            return self.in_quest
+            
         print('Entrando a arena llamando a matching')
         result = matching(self, message)
 
