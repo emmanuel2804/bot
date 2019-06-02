@@ -10,6 +10,29 @@ import console
 import data_handler
 import re
 
+@bot.message_handler(func=lambda message: True)
+def not_start(message):
+    user = message.from_user
+
+    if(not users.keys().__contains__(user.id)):
+        start(message)
+        return
+
+    text = message.text
+
+    if text == '/me': me(message)
+    elif text == '/forest' : forest(message)
+    elif text == '/arena' : arena(message)
+    elif text == '/inv' : inv(message)
+    elif text == '/back_to_father' : back_to_father(message)
+    elif text == '/chose_node' : chose_node(message)
+    elif text == '/chose_target' : chose_target(message)
+    elif text == '/set_edge' : set_edge(message)
+    elif text == '/set_node' : set_node(message)
+    elif text == '/update_tree' : update_tree(message)
+    else:
+        bot_send_message(user.id, "Comando desconocido")
+
 @bot.message_handler(commands = ['forest'])
 def forest(message):
     try:
@@ -17,7 +40,7 @@ def forest(message):
 
         bot_send_message(user.id, users[user.id].Forest(message))
     except Exception as e:
-        bot_send_message(user.id, user.username + 'papa dale /start primero')
+        print("Un error ha ocurrido en el metodo Forest de init.py:\n", e)
 
 @bot.message_handler(commands = ['arena'])
 def arena(message):
@@ -25,8 +48,8 @@ def arena(message):
         user = message.from_user
 
         bot_send_message(user.id, users[user.id].Arena(message))
-    except Exception as identifier:
-        bot_send_message(user.id, user.username + ' papa dale /start primero' +'\n' +identifier.__str__())
+    except Exception as e:
+        print("Un error ha ocurrido en el metodo Arena de init.py:\n", e)
 
 @bot.message_handler(commands = ['set_node'])
 def set_node(message):
@@ -43,8 +66,8 @@ def set_node(message):
             count += 1
 
         bot_send_message(user.id, text)
-    except Exception as identifier:
-        bot_send_message(user.id, 'Error en set_node\n' + str(identifier))
+    except Exception as e:
+        print("Un error ha ocurrido en el metodo set_node de init.py:\n", e)
 
 @bot.message_handler(commands = ['node_0', 'node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6'])
 def chose_node(message):
@@ -54,8 +77,8 @@ def chose_node(message):
         chose = int(message.text.split('_')[-1])
         users[user.id].current_node.value = users[user.id].nodes[chose]
         bot_send_message(user.id, 'Nodo escogido')
-    except Exception as identifier:
-        bot_send_message(user.id, 'Error en chose_node con node\n' + str(identifier))
+    except Exception as e:
+        print("Un error ha ocurrido en el metodo chose_node de init.py:\n", e)
 
 @bot.message_handler(commands = ['back_to_father'])
 def back_to_father(message):
@@ -64,8 +87,8 @@ def back_to_father(message):
 
         users[user.id].current_node = users[user.id].current_node.father
         bot_send_message(user.id, 'Nodo actual ' + str(users[user.id].current_node))
-    except Exception as identifier:
-        bot_send_message(user.id, 'Error en back_to_father\n' + str(identifier))
+    except Exception as e:
+        print("Un error ha ocurrido en el metodo back_to_father de init.py:\n", e)
 
 @bot.message_handler(commands = ['Fermat', 'Lagrange', 'Newton', 'Gauss', 'Neumann'])
 def chose_target(message):
@@ -84,8 +107,8 @@ def chose_target(message):
         photo = open(path, 'rb')
         bot.send_photo(user.id, photo)
         photo.close()
-    except Exception as identifier:
-        bot_send_message(user.id, 'Error en chose_target\n' + str(identifier))
+    except Exception as e:
+        print("Un error ha ocurrido en el metodo chose_target de init.py:\n", e)
 
 @bot.message_handler(commands = ['me'])
 def me(message):
@@ -94,11 +117,10 @@ def me(message):
 
         bot_send_message(user.id, users[user.id])
     except Exception as e:
-        bot_send_message(user.id, 'Cancio papa dale /start primero')
+        print("Un error ha ocurrido en el metodo me de init.py:\n", e)
 
 @bot.message_handler(commands = ['inv'])
 def inv(message):
-    print('entro en el metodo inv')
     try:
         user = message.from_user
 
@@ -111,10 +133,9 @@ def inv(message):
         for i in l:
             result += i + ' /i' + str(count) + '\n'
             count += 1
-        print('termino de armar el inv ' + result)
         bot_send_message(user.id, result)
-    except Exception as identifier:
-        bot_send_message(user.id, 'aqui se rompe\n' + str(identifier))
+    except Exception as e:
+        print("Un error ha ocurrido en el metodo inv de init.py:\n", e)
 
 @bot.message_handler(commands = ['help'])
 def help(message):
@@ -129,24 +150,11 @@ def start(message):
   
     users[user.id] = Hero(user.id)
 
-    kb = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True, one_time_keyboard=True)
-
-    kbtn1 = types.KeyboardButton("Fermat")
-    kbtn2 = types.KeyboardButton("Lagrange")
-    kbtn3 = types.KeyboardButton("Newton")
-    kbtn4 = types.KeyboardButton("Gauss")
-    kbtn5 = types.KeyboardButton("Neumann")
-
-    kb.add(kbtn2, kbtn1)
-    kb.row(kbtn3, kbtn4)
-    kb.row(kbtn5)
-
     try:
-        bot_send_message(user.id, 'Escoge un castillo', reply_markup=kb)
+        bot_send_message(user.id, 'Escoge un castillo', reply_markup=kb_castles)
         bot.register_next_step_handler(message, chosen_casttle)
     except Exception as e:                                # to be handled next
         print("An error occurred when processing 'Language Selector':", e)
-        pass
 
 @bot.message_handler(commands = ['set_edge'])
 def set_edge(message):
@@ -173,15 +181,8 @@ def update_tree(message):
 
 def main():
     # Start command console
-    if argv[1] == '--proxy':
-        file = open('proxy.json', 'r')
-        text = file.read()
-        file.close()
-
-        config = loads(text)
-
-        apihelper.proxy = {'https' : 'socks5://' + config['userproxy'] + ':' + config['passproxy'] + 
-            '@' + config['proxy_address'] + ':' + config['proxy_port']}
+    if len(argv) > 1 and argv[1] == '--proxy':
+        addproxy()
 
     print('setting environment')
     data_handler.init()

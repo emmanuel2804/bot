@@ -13,6 +13,18 @@ exp_for_lvl = {1:0,     11:721,	    21:6719, 	31:54934, 	41:192353,\
                9:444,   19:4300, 	29:39023, 	39:154685, 	49:428501,\
                10:577, 	20:5375, 	30:46636, 	40:172708, 	50:471167}
 
+kb_castles = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True, one_time_keyboard=True)
+
+kbtn1_c = types.KeyboardButton("Fermat")
+kbtn2_c = types.KeyboardButton("Lagrange")
+kbtn3_c = types.KeyboardButton("Newton")
+kbtn4_c = types.KeyboardButton("Gauss")
+kbtn5_c = types.KeyboardButton("Neumann")
+
+kb_castles.add(kbtn2_c, kbtn1_c)
+kb_castles.row(kbtn3_c, kbtn4_c)
+kb_castles.row(kbtn5_c)
+
 def create_markup(*args):
     # print(args)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
@@ -38,6 +50,11 @@ def bot_send_message(id, message, reply_markup=None):
 def chosen_casttle(msg):
     user = msg.from_user
     
+    if(not ["Fermat", "Lagrange", "Newton", "Gauss", "Neumann"].__contains__(msg.text)):
+        bot_send_message(user.id, "Castillo incorrecto, vuelva a escoger", reply_markup=kb_castles)
+        bot.register_next_step_handler(msg, chosen_casttle)
+        return
+
     users[user.id].set_casttle(msg.text)
     users[user.id].set_name(user.username)
 

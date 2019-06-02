@@ -19,6 +19,7 @@ https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&v
   * [Instalar pyTelegramBotAPI](#instalar-pyTelegramBotAPI)
   * [Ejecutar el bot](#ejecutar-el-bot)
     * [Acceder al bot](#acceder-al-bot)
+    * [Proxy](#proxy)
 
 ## Instalar pyTelegramBotAPI.
 
