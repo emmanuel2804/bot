@@ -1,0 +1,6 @@
+{
+    "userproxy" : "Colocar aqui su usuario del proxy",
+    "passproxy" : "Colocar aqui su password del proxy",
+    "proxy_address" : "Direccion del proxy",
+    "proxy_port" : "Puerto del proxy"
+}

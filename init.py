@@ -1,10 +1,11 @@
 import telebot
-from telebot import types
+from telebot import types, apihelper
 from json import loads
 from hero import Hero
 from castle import *
 from initialize import *
 from utils import *
+from sys import argv
 import console
 import data_handler
 import re
@@ -172,6 +173,16 @@ def update_tree(message):
 
 def main():
     # Start command console
+    if argv[1] == '--proxy':
+        file = open('proxy.json', 'r')
+        text = file.read()
+        file.close()
+
+        config = loads(text)
+
+        apihelper.proxy = {'https' : 'socks5://' + config['userproxy'] + ':' + config['passproxy'] + 
+            '@' + config['proxy_address'] + ':' + config['proxy_port']}
+
     print('setting environment')
     data_handler.init()
     
