@@ -21,6 +21,7 @@ def not_start(message):
     text = message.text
 
     if text == '/me': me(message)
+    elif text == '/start' and not users.keys().__contains__(user.id) : start(message)
     elif text == '/forest' : forest(message)
     elif text == '/arena' : arena(message)
     elif text == '/inv' : inv(message)
